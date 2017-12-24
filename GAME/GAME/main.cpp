@@ -43,7 +43,7 @@ int main()
 	   p.sprite.move(-0.1*time, 0); p.sprite.setTextureRect(IntRect(111, 0, 42, 47)); 
 		} 
 		if ((Keyboard::isKeyPressed(Keyboard::Right)||(Keyboard::isKeyPressed(Keyboard::D)))) {
-	   p.sprite.move(0.1*time, 0); p.sprite.setTextureRect(IntRect(160, 0, 42, 47)); 
+	   p.sprite.move(0.1*time, 0); p.sprite.setTextureRect(IntRect(160, 0, 39, 47)); 
 		} 
 		if ((Keyboard::isKeyPressed(Keyboard::Up)||(Keyboard::isKeyPressed(Keyboard::W)))) { 
 	  p.sprite.move(0, -0.1*time); p.sprite.setTextureRect(IntRect(56, 0, 52, 47)); 
