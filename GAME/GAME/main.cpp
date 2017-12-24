@@ -37,37 +37,7 @@ int main()
 		}
 
 
-	/*	if (Keyboard::isKeyPressed(Keyboard::A)) {
-			p.dir = 1; p.speed = 0.1;
-			p.sprite.setTextureRect(IntRect(111, 0, 42, 47));
-			p.update(time);
-		}
-		else //— помощью else € исключила возможность движени€ по диагонали, котаны.
-
-		if (Keyboard::isKeyPressed(Keyboard::D))
-		{ 
-			p.dir = 0; p.speed = 0.1;//направление вправо
-			p.sprite.setTextureRect(IntRect(160, 0, 40, 47));
-			p.update(time);
-
-		} 
-		else
 	
-			if (Keyboard::isKeyPressed(Keyboard::W))
-		{ 
-			p.dir = 3; p.speed = 0.1;//направление вниз
-			p.sprite.setTextureRect(IntRect(56, 0, 52, 47));  
-			p.update(time);
-			
-		}
-		else
- 
-		if  (Keyboard::isKeyPressed(Keyboard::S))
-		{ 
-			p.dir = 2; p.speed = 0.1;
-			p.sprite.setTextureRect(IntRect(0, 0, 52, 47));
-			p.update(time);
-		} */
 
 		if ((Keyboard::isKeyPressed(Keyboard::Left)||(Keyboard::isKeyPressed(Keyboard::A)))) { 
 	   p.sprite.move(-0.1*time, 0); p.sprite.setTextureRect(IntRect(111, 0, 42, 47)); 
