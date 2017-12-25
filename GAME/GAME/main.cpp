@@ -15,7 +15,7 @@ int main()
 	Image heroImage;
 	heroImage.loadFromFile("images/blue_dude.png"); // загружаем изображение игрока
 	
-	Player p(heroImage,0, 250, 52, 47,"Player1");
+	Player p(heroImage,52, 250, 52, 47,"Player1");
 
 	Image map_image;//объект изображения для карты
 	map_image.loadFromFile("images/map.png");//загружаем файл для карты
@@ -57,6 +57,7 @@ int main()
 		{
 			if (TileMap[i][j] == ' ') s_map.setTextureRect(IntRect(0, 0, 47, 47)); //если встретили символ пробел, то рисуем 1й квадратик
 			if (TileMap[i][j] == '0') s_map.setTextureRect(IntRect (47, 0, 47, 47));//если встретили символ 0, то рисуем 2й квадратик
+			if (TileMap[i][j] == '1') s_map.setTextureRect(IntRect (94, 0, 47, 47));
  
  
 			s_map.setPosition(j * 47, i * 47);//по сути раскидывает квадратики, превращая в карту. то есть задает каждому из них позицию. если убрать, то вся карта нарисуется в одном квадрате 32*32 и мы увидим один квадрат
@@ -79,7 +80,7 @@ void Player::checkCollisionWithMap(float Dx, float Dy)
 	for (int i = y / 47; i < (y + h) / 47; i++)//проходимся по элементам карты
 		for (int j = x / 47; j<(x + w) / 47; j++)
 		{
-			if (TileMap[i][j] == '0')//если элемент тайлик земли
+			if ((TileMap[i][j] == '0') || (TileMap[i][j] == '1'))//если элемент тайлик земли
 			{
 			if (Dy > 0) { y = i * 47 - h;  dy = 0; }//по Y 
 			if (Dy < 0) { y = i * 47 + 47; dy = 0; }//столкновение с верхними краями 
