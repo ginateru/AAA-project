@@ -16,42 +16,34 @@ Player::Player(Image &image, float X, float Y, int W, int H, std::string Name) :
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Player::control(){
 		if (Keyboard::isKeyPressed(Keyboard::Left)) {
+			sprite.setTextureRect(IntRect(112, 0, 40, 47));
 			state = left;
 			speed = 0.1;
 		}
+
+
 		if (Keyboard::isKeyPressed(Keyboard::Right)) {
+			sprite.setTextureRect(IntRect(160, 0, 40, 47));
 			state = right;
 			speed = 0.1;
 		}
 
+
+
 		if (Keyboard::isKeyPressed(Keyboard::Up)) {
+			sprite.setTextureRect(IntRect(56, 0, 56, 47));
 			state = up;
 			speed = 0.1;
 		}
-
+		
 		if (Keyboard::isKeyPressed(Keyboard::Down)) {
+			sprite.setTextureRect(IntRect(0, 0, w, h));
 			state = down;
 			speed = 0.1;
 		}
 	}
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Метод проверки столкновений с элементами карты
-void Player::checkCollisionWithMap(float Dx, float Dy)	
-	{
-	for (int i = y / 47; i < (y + h) / 47; i++)//проходимся по элементам карты
-		for (int j = x / 47; j<(x + w) / 47; j++)
-		{
-			if (TileMap[i][j] == '0')//если элемент тайлик земли
-			{
-			if (Dy > 0) { y = i * 47 - h;  dy = 0; }//по Y 
-			if (Dy < 0) { y = i * 47 + 47; dy = 0; }//столкновение с верхними краями 
-			if (Dx > 0) { x = j * 47 - w; dx = 0; }//с правым краем карты
-			if (Dx < 0) { x = j * 47 + 47; dx = 0; }// с левым краем карты
-			}
-				
-		}
-	}
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -63,18 +55,22 @@ void Player::update(float time) //метод "оживления/обновления" объекта класса.
 		{
 		case right:{//состояние идти вправо
 			dx = speed;
+			dy = 0;
 				break;
 		}
 		case left:{//состояние идти влево
 				dx = -speed;
+				dy = 0;
 				break;
 			}
 		case up:{//идти вверх
 			dy = -speed;
+			dx = 0;
 				break;
 			}
 			case down:{//идти вниз
 				dy = speed;
+				dx = 0;
 				break;
 			}
 			case stay:{//стоим
