@@ -80,12 +80,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EntClass.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="map.h" />
-    <ClInclude Include="PClass.h" />
+    <ClInclude Include="Class.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

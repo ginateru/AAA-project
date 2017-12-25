@@ -1,31 +1,98 @@
-#include "PClass.h"
+#include "Class.h"
 
-
-Player::Player(String F, float X, float Y, float W, float H){  //Конструктор с параметрами(формальными) для класса Player. При создании объекта класса мы будем задавать имя файла, координату Х и У, ширину и высоту
-		File = F;//имя файла+расширение
-		w = W; h = H;//высота и ширина
-		image.loadFromFile("images/" + File);
-		image.createMaskFromColor(Color(255, 255, 255)); 
-		texture.loadFromImage(image);//закидываем наше изображение в текстуру
-		sprite.setTexture(texture);//заливаем спрайт текстурой
-		x = 0; y = 250;//координата появления спрайта
-		sprite.setTextureRect(IntRect(0, 0, w, h));  
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Player::Player(Image &image, float X, float Y, int W, int H, std::string Name) :Entity(image, X, Y, W, H, Name)
+	{
+ 
+		state = stay;
+		if (name == "Player1")
+		{
+			//Задаем спрайту один прямоугольник для
+			//вывода одного игрока. IntRect – для приведения типов
+			sprite.setTextureRect(IntRect(0, 0, w, h));
+		}
 	}
 
-
-void Player::update(float time) //функция "оживления" объекта класса. update - обновление. принимает в себя время SFML , вследствие чего работает бесконечно, давая персонажу движение.
-	{
-		switch (dir)//реализуем поведение в зависимости от направления. (каждая цифра соответствует направлению)
-		{
-		case 0: dx = speed; dy = 0;   break;
-		case 1: dx = -speed; dy = 0;   break;
-		case 2: dx = 0; dy = speed;   break;
-		case 3: dx = 0; dy = -speed;   break;
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void Player::control(){
+		if (Keyboard::isKeyPressed(Keyboard::Left)) {
+			state = left;
+			speed = 0.1;
 		}
- 
-		x += dx*time;
-		y += dy*time;
- 
-		speed = 0;//зануляем скорость, чтобы персонаж остановился.
-		sprite.setPosition(x,y); //выводим спрайт в позицию x y , посередине. бесконечно выводим в этой функции, иначе бы наш спрайт стоял на месте.
+		if (Keyboard::isKeyPressed(Keyboard::Right)) {
+			state = right;
+			speed = 0.1;
+		}
+
+		if (Keyboard::isKeyPressed(Keyboard::Up)) {
+			state = up;
+			speed = 0.1;
+		}
+
+		if (Keyboard::isKeyPressed(Keyboard::Down)) {
+			state = down;
+			speed = 0.1;
+		}
+	}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Метод проверки столкновений с элементами карты
+void Player::checkCollisionWithMap(float Dx, float Dy)	
+	{
+	for (int i = y / 47; i < (y + h) / 47; i++)//проходимся по элементам карты
+		for (int j = x / 47; j<(x + w) / 47; j++)
+		{
+			if (TileMap[i][j] == '0')//если элемент тайлик земли
+			{
+			if (Dy > 0) { y = i * 47 - h;  dy = 0; }//по Y 
+			if (Dy < 0) { y = i * 47 + 47; dy = 0; }//столкновение с верхними краями 
+			if (Dx > 0) { x = j * 47 - w; dx = 0; }//с правым краем карты
+			if (Dx < 0) { x = j * 47 + 47; dx = 0; }// с левым краем карты
+			}
+				
+		}
+	}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void Player::update(float time) //метод "оживления/обновления" объекта класса.
+	{
+	if (life) {//проверяем, жив ли герой
+		control();//функция управления персонажем
+		switch (state)//делаются различные действия в зависимости от состояния
+		{
+		case right:{//состояние идти вправо
+			dx = speed;
+				break;
+		}
+		case left:{//состояние идти влево
+				dx = -speed;
+				break;
+			}
+		case up:{//идти вверх
+			dy = -speed;
+				break;
+			}
+			case down:{//идти вниз
+				dy = speed;
+				break;
+			}
+			case stay:{//стоим
+				dy = speed;
+				dx = speed;
+				break;
+			}
+			}
+
+			x += dx*time; //движение по “X”
+			checkCollisionWithMap(dx, 0);//обрабатываем столкновение по Х
+			y += dy*time; //движение по “Y”
+			checkCollisionWithMap(0, dy);//обрабатываем столкновение по Y
+
+			speed = 0;    //обнуляем скорость, чтобы персонаж остановился.
+
+			sprite.setPosition(x, y); //спрайт в позиции (x, y).
+
+		if (health <= 0){ life = false; }//если жизней меньше 0, либо равно 0, то умираем 
+		}
 	}

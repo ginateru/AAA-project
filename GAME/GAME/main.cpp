@@ -1,20 +1,21 @@
 #include <SFML/Graphics.hpp>
 #include <iostream> 
+#include "Class.h"
 #include "map.h"
-#include "PClass.h"
 
 using namespace sf;
 
+
 int main()
 {
-    
-
-	Clock clock;
 
 	VideoMode desktop = sf::VideoMode::getDesktopMode();
 	RenderWindow window(sf::VideoMode(800, 600, desktop.bitsPerPixel), "test");
 
-	Player p("blue_dude.png",0, 250, 52, 47);
+	Image heroImage;
+	heroImage.loadFromFile("images/blue_dude.png"); // загружаем изображение игрока
+	
+	Player p(heroImage,0, 250, 52, 47,"Player1");
 
 	Image map_image;//объект изображени€ дл€ карты
 	map_image.loadFromFile("images/map.png");//загружаем файл дл€ карты
@@ -23,6 +24,11 @@ int main()
 	Sprite s_map;//создаЄм спрайт дл€ карты
 	s_map.setTexture(map);//заливаем текстуру спрайтом
 
+	Clock clock;
+	Clock gameTimeClock;//переменна€ игрового времени, будем здесь хранить врем€ игры 
+	int gameTime = 0;//объ€вили игровое врем€, инициализировали.
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	while (window.isOpen())	
 	{
 		float time = clock.getElapsedTime().asMicroseconds(); 
@@ -36,21 +42,10 @@ int main()
 				window.close();
 		}
 
-
+								////////////////////////////////////////////////////////////////////////
 	
 
-		if ((Keyboard::isKeyPressed(Keyboard::Left)||(Keyboard::isKeyPressed(Keyboard::A)))) { 
-	   p.sprite.move(-0.1*time, 0); p.sprite.setTextureRect(IntRect(111, 0, 42, 47)); 
-		} 
-		if ((Keyboard::isKeyPressed(Keyboard::Right)||(Keyboard::isKeyPressed(Keyboard::D)))) {
-	   p.sprite.move(0.1*time, 0); p.sprite.setTextureRect(IntRect(160, 0, 39, 47)); 
-		} 
-		if ((Keyboard::isKeyPressed(Keyboard::Up)||(Keyboard::isKeyPressed(Keyboard::W)))) { 
-	  p.sprite.move(0, -0.1*time); p.sprite.setTextureRect(IntRect(56, 0, 52, 47)); 
-		}
-		if ((Keyboard::isKeyPressed(Keyboard::Down)||(Keyboard::isKeyPressed(Keyboard::S)))) {
-	   p.sprite.move(0, 0.1*time); p.sprite.setTextureRect(IntRect(0, 0, 52, 47)); 
-		}
+		p.update(time);
 
 
 
