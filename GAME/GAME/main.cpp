@@ -15,7 +15,7 @@ int main()
 	Image heroImage;
 	heroImage.loadFromFile("images/blue_dude.png"); // загружаем изображение игрока
 	
-	Player p(heroImage,0, 250, 52, 47,"Player1");
+	Player p(heroImage,250, 250, 52, 47,"Player1");
 
 	Image map_image;//объект изображения для карты
 	map_image.loadFromFile("images/map.png");//загружаем файл для карты
