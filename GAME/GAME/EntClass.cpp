@@ -1,5 +1,6 @@
 #include "Class.h"
 
+
 Entity::Entity(Image &image, float X, float Y, int W, int H, std::string Name){          //  онструктор класса —ущность
 		x = X; y = Y; //координата по€влени€ спрайта
 		w = W; h = H; 
@@ -24,3 +25,4 @@ FloatRect Entity::getRect(){//метод получени€ пр€моугольника. его коорд, размеры
 	//эта ф-ци€ нужна дл€ проверки пересечений 
 	}
 
+	
