@@ -13,9 +13,14 @@ int main()
 	RenderWindow window(sf::VideoMode(800, 600, desktop.bitsPerPixel), "test");
 
 	Image heroImage;
-	heroImage.loadFromFile("images/blue_dude.png"); // загружаем изображение игрока
+	Image enemyImage;
+	heroImage.loadFromFile("images/blue_dude.png");
+	enemyImage.loadFromFile("images/red_dude.png");
+
 	
-	Player p(heroImage,250, 250, 52, 47,"Player1");
+
+	Player p(heroImage, 50, 280, 52, 47,"Player1");
+	Enemy q(enemyImage, 325, 280, 52, 47, "Enemy");
 
 	Image map_image;//объект изображени€ дл€ карты
 	map_image.loadFromFile("images/map.png");//загружаем файл дл€ карты
@@ -46,7 +51,7 @@ int main()
 	
 
 		p.update(time);
-
+		q.update(time);
 
 
 
@@ -57,6 +62,7 @@ int main()
 		{
 			if (TileMap[i][j] == ' ') s_map.setTextureRect(IntRect(0, 0, 47, 47)); //если встретили символ пробел, то рисуем 1й квадратик
 			if (TileMap[i][j] == '0') s_map.setTextureRect(IntRect (47, 0, 47, 47));//если встретили символ 0, то рисуем 2й квадратик
+			if (TileMap[i][j] == '1') s_map.setTextureRect(IntRect (94, 0, 47, 47));
  
  
 			s_map.setPosition(j * 47, i * 47);//по сути раскидывает квадратики, превраща€ в карту. то есть задает каждому из них позицию. если убрать, то вс€ карта нарисуетс€ в одном квадрате 32*32 и мы увидим один квадрат
@@ -66,6 +72,7 @@ int main()
 
 
 		window.draw(p.sprite);
+		window.draw(q.sprite);
 		window.display();
 	}
 
@@ -79,7 +86,7 @@ void Player::checkCollisionWithMap(float Dx, float Dy)
 	for (int i = y / 47; i < (y + h) / 47; i++)//проходимс€ по элементам карты
 		for (int j = x / 47; j<(x + w) / 47; j++)
 		{
-			if (TileMap[i][j] == '0')//если элемент тайлик земли
+			if ((TileMap[i][j] == '0') || (TileMap[i][j] == '1'))//если элемент тайлик земли
 			{
 			if (Dy > 0) { y = i * 47 - h;  dy = 0; }//по Y 
 			if (Dy < 0) { y = i * 47 + 47; dy = 0; }//столкновение с верхними кра€ми 
@@ -88,4 +95,32 @@ void Player::checkCollisionWithMap(float Dx, float Dy)
 			}
 				
 		}
+	}
+
+void Enemy::checkCollisionWithMap(float Dx, float Dy)//ф-ци€ проверки столкновений с картой
+	{
+		for (int i = y / 47; i < (y + h) / 47; i++)//проходимс€ по элементам карты
+			for (int j = x / 47; j<(x + w) / 47; j++)
+			{
+				if ((TileMap[i][j] == '0') || (TileMap[i][j] == '1'))//если элемент - тайлик земли
+				{
+					if (Dy > 0) {
+						y = i * 47 - h;  dy = -0.1; 
+						direction = 0;
+						direction = 2; //Ќаправление движени€ врага
+						}//по Y 
+					if (Dy < 0) {
+						y = i * 47 + 47; dy = 0.1; 
+						direction = 3;//Ќаправление движени€ врага 
+						}//столкновение с верхними кра€ми 
+					if (Dx > 0) {
+						x = j * 47 - w; dx = -0.1; 
+						direction = 1;//Ќаправление движени€ врага 
+						}//с правым краем карты
+					if (Dx < 0) {
+						x = j * 47 + 47; dx = 0.1; 
+						direction = 0; //Ќаправление движени€ врага
+						}// с левым краем карты
+				}
+			}
 	}

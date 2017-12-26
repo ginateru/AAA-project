@@ -15,14 +15,14 @@ Player::Player(Image &image, float X, float Y, int W, int H, std::string Name) :
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Player::control(){
-		if (Keyboard::isKeyPressed(Keyboard::Left)) {
+		if (Keyboard::isKeyPressed(Keyboard::A)) {
 			sprite.setTextureRect(IntRect(112, 0, 40, 47));
 			state = left;
 			speed = 0.1;
 		}
 
 
-		if (Keyboard::isKeyPressed(Keyboard::Right)) {
+		if (Keyboard::isKeyPressed(Keyboard::D)) {
 			sprite.setTextureRect(IntRect(160, 0, 40, 47));
 			state = right;
 			speed = 0.1;
@@ -30,13 +30,13 @@ void Player::control(){
 
 
 
-		if (Keyboard::isKeyPressed(Keyboard::Up)) {
+		if (Keyboard::isKeyPressed(Keyboard::W)) {
 			sprite.setTextureRect(IntRect(56, 0, 56, 47));
 			state = up;
 			speed = 0.1;
 		}
 		
-		if (Keyboard::isKeyPressed(Keyboard::Down)) {
+		if (Keyboard::isKeyPressed(Keyboard::S)) {
 			sprite.setTextureRect(IntRect(0, 0, w, h));
 			state = down;
 			speed = 0.1;
