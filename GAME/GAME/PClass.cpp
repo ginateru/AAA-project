@@ -47,24 +47,28 @@ void Player::update(float time) //метод "оживления/обновления" объекта класса.
 		switch (state)//делаются различные действия в зависимости от состояния
 		{
 		case right:{//состояние идти вправо
+			sprite.setTextureRect(IntRect(160, 0, 39, 47));
 			dx = speed;
 				break;
 		}
 		case left:{//состояние идти влево
+			sprite.setTextureRect(IntRect(111, 0, 42, 47));
 				dx = -speed;
 				break;
 			}
 		case up:{//идти вверх
+			sprite.setTextureRect(IntRect(56, 0, 52, 47));
 			dy = -speed;
 				break;
 			}
 			case down:{//идти вниз
+				sprite.setTextureRect(IntRect(0, 0, 52, 47));
 				dy = speed;
 				break;
 			}
-			case stay:{//стоим
-				dy = speed;
-				dx = speed;
+			default:{//стоим
+				dy = 0;
+				dx = 0;
 				break;
 			}
 			}

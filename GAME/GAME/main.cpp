@@ -14,6 +14,7 @@ int main()
 
 	Image heroImage;
 	heroImage.loadFromFile("images/blue_dude.png"); // загружаем изображение игрока
+	heroImage.createMaskFromColor(Color(255, 255, 255));
 	
 	Player p(heroImage,0, 250, 52, 47,"Player1");
 
