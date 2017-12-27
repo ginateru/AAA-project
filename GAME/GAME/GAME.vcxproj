@@ -80,6 +80,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BulletClass.cpp" />
     <ClCompile Include="EnemyClass.cpp" />
     <ClCompile Include="EntClass.cpp" />
     <ClCompile Include="main.cpp" />

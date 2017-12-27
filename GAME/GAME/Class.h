@@ -29,9 +29,8 @@ public:
 //////////////////////////////////////////////////Класс Герой/////////////////////////////////////////////////////////////////////
 class Player :public Entity {
 public:
-
 	Player(Image &image, float X, float Y, int W, int H, std::string Name);
-
+	
 	void control();
 
 	void Player::checkCollisionWithMap(float Dx, float Dy);		//Метод проверки столкновений с элементами карты
@@ -47,7 +46,7 @@ public:
 	int direction;//направление движения врага
 	Enemy(Image &image, float X, float Y, int W, int H, std::string Name);
 
-	void checkCollisionWithMap(float Dx, float Dy);//ф-ция проверки столкновений с картой
+	void checkCollisionWithMap(double Dx, double Dy);//ф-ция проверки столкновений с картой
 
 	void update(float time);
 	
@@ -63,6 +62,7 @@ public:
 	Bullet(Image &image, float X, float Y, int W, int H, std::string  Name, int dir);
 
 	void update(float time);
+
 	
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

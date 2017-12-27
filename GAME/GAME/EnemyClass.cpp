@@ -5,7 +5,7 @@ Enemy::Enemy(Image &image, float X, float Y, int W, int H, std::string Name) :En
 	if (name == "Enemy")
 	{
 		sprite.setTextureRect(IntRect(0, 0, w, h));
-		direction = rand() % (3); 
+		direction = rand() % (4); 
 		speed = 0.1;
 		dx = speed;
 	}
