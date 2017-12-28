@@ -114,21 +114,28 @@ int main()
 		}
 		for (no = Bullets.begin(); no != Bullets.end(); no++)
 		{
-			for (it = enemies.begin(); it != enemies.end(); it++)
+			for (it = enemies.begin(); it != enemies.end();)
 			{
 				if((*it)->getRect().intersects((*no)->getRect()))
 				{
+					Entity *b = *it;
 					(*it)-> life = false;	
 					it = enemies.erase(it);
+					delete (b);
 					p.score += 5;
 				}
+				else it++;
 			}
 		}
 
 
 		for (it = Bullets.begin(); it != Bullets.end(); )//говорим что проходимся от начала до конца
 		{// если этот объект мертв, то удаляем его
-			if ((*it)-> life == false)	{ it = Bullets.erase(it); }			
+			if ((*it)-> life == false)	{ 
+				Entity *b = *it;
+				it = Bullets.erase(it);
+				delete (b);
+			}			
 else  
 	it++; //и идем курсором (итератором) к след объекту.
 		}
@@ -160,7 +167,7 @@ text.setStyle(sf::Text::Bold | sf::Text::Underlined);
 
 std::ostringstream playerScore;
 playerScore << p.score;
-text.setString("Здесь могла быть ваша реклама:" + playerScore.str());//задает строку тексту
+text.setString("Счет:" + playerScore.str());//задает строку тексту
 text.setPosition(5, 5);//задаем позицию текста
 window.draw(text);//Рисуем этот текст
 
@@ -171,10 +178,10 @@ text.setPosition(5, 25);//задаем позицию текста
 window.draw(text);//Рисуем этот текст
 
 if (p.NoWin == false){
-	Text text("", font, 35);
+	Text text("", font,60);
 text.setColor(Color::Red);
 text.setString("ПОБЕДА");//задает строку тексту
-text.setPosition(300, 250);//задаем позицию текста
+text.setPosition(250, 250);//задаем позицию текста
 window.draw(text);//Рисуем этот текст
 }
 		window.draw(p.sprite);
