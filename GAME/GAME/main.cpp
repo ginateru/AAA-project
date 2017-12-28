@@ -1,6 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream> 
 #include "Class.h"
+#include "BulletClass.h"
+#include "EnemyClass.h"
+#include "PClass.h"
 #include "map.h"
 #include <sstream>
 #include <list>
@@ -221,96 +224,10 @@ return 0;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Метод проверки столкновений с элементами карты
-void Player::checkCollisionWithMap(float Dx, float Dy)	
-	{
-	for (int i = y / 47; i < (y + h) / 47; i++)//проходимся по элементам карты
-		for (int j = x / 47; j<(x + w) / 47; j++)
-		{
-			if ((TileMap[i][j] == '0') || (TileMap[i][j] == '1'))//если элемент тайлик земли или бамбука
-			{
-			if (Dy > 0) { y = i * 47 - h;  dy = 0; }//по Y 
-			if (Dy < 0) { y = i * 47 + 47; dy = 0; }//столкновение с верхними краями 
-			if (Dx > 0) { x = j * 47 - w;  dx = 0; }//с правым краем карты
-			if (Dx < 0) { x = j * 47 + 47; dx = 0; }// с левым краем карты
-			}
-			if (TileMap[i][j] == '2')
-			{
-	               score++;
-				   health+=1;
-	               TileMap[i][j] = ' ';
-                }
-			if (TileMap[i][j] == '3')
-			{
-				score += 50;
-				std::cout << "YOU ARE WINNER!!!";
-				TileMap[i][j] = ' ';
-				NoWin = false;
-			}
 
-			}
-				
-		}
 	
 
 
 
-void Enemy::checkCollisionWithMap(double Dx, double Dy)//ф-ция проверки столкновений с картой
-{
-		for (int i = y / 47; i < (y + h) / 47; i++)//проходимся по элементам карты
-			for (int j = x / 47; j<(x + w) / 47; j++)
-			{
-				if ((TileMap[i][j] == '0') || (TileMap[i][j] == '1'))//если элемент - тайлик земли
-				{
-					if (Dy > 0) {
-						y = i * 47 - h;  dy = -0.1; 
-						direction = rand() % (4); //Направление движения врага
-						}//по Y 
-					if (Dy < 0) {
-						y = i * 47 + 47; dy = 0.1; 
-						direction = rand() % (4);//Направление движения врага 
-						}//столкновение с верхними краями 
-					if (Dx > 0) {
-						x = j * 47 - w; dx = -0.1; 
-						direction = rand() % (4);//Направление движения врага 
-						}//с правым краем карты
-					if (Dx < 0) {
-						x = j * 47 + 47; dx = 0.1; 
-						direction = rand() % (4); //Направление движения врага
-						}// с левым краем карты
-				}
-			}
-	}
 
-  void Bullet::update(float time)
-	{
-		
-		switch (direction)
-		{
-		case 0: dx = -speed; dy = 0;  break;
-		case 1: dx = speed; dy = 0;   break;
-		case 2: dx = 0; dy = -speed;  break;
-		case 3: dx = 0; dy = speed;   break;
-		case 4: dx = 0; dy = 0; break;
-		}
-
-		if (life)
-		{
-			x += dx*time;
-			y += dy*time;
-
-		
-
-
-			for (int i =y / 47; i < (y + h) / 47; i++)
-				for (int j = x / 47; j < (x + w) / 47; j++)
-				{
-					if ((TileMap[i][j] == '0') || (TileMap[i][j] == '1'))
-				
-					life = false;
-					
-				}
-				sprite.setPosition(x + w / 2, y + h /2);
-				
-		}
-	
-  }
+  

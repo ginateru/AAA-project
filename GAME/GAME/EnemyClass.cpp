@@ -1,5 +1,5 @@
-#include "Class.h"
-
+#include "EnemyClass.h"
+#include "map.h"
 Enemy::Enemy(Image &image, float X, float Y, int W, int H, std::string Name) :Entity(image, X, Y, W, H, Name)
 {
 	if (name == "Enemy")
@@ -10,6 +10,33 @@ Enemy::Enemy(Image &image, float X, float Y, int W, int H, std::string Name) :En
 		dx = speed;
 	}
 };
+
+void Enemy::checkCollisionWithMap(double Dx, double Dy)//ф-ци€ проверки столкновений с картой
+{
+		for (int i = y / 47; i < (y + h) / 47; i++)//проходимс€ по элементам карты
+			for (int j = x / 47; j<(x + w) / 47; j++)
+			{
+				if ((TileMap[i][j] == '0') || (TileMap[i][j] == '1'))//если элемент - тайлик земли
+				{
+					if (Dy > 0) {
+						y = i * 47 - h;  dy = -0.1; 
+						direction = rand() % (4); //Ќаправление движени€ врага
+						}//по Y 
+					if (Dy < 0) {
+						y = i * 47 + 47; dy = 0.1; 
+						direction = rand() % (4);//Ќаправление движени€ врага 
+						}//столкновение с верхними кра€ми 
+					if (Dx > 0) {
+						x = j * 47 - w; dx = -0.1; 
+						direction = rand() % (4);//Ќаправление движени€ врага 
+						}//с правым краем карты
+					if (Dx < 0) {
+						x = j * 47 + 47; dx = 0.1; 
+						direction = rand() % (4); //Ќаправление движени€ врага
+						}// с левым краем карты
+				}
+			}
+	}
 
 
 void Enemy::update(float time)

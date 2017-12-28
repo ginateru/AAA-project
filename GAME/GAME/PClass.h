@@ -1,0 +1,15 @@
+#include "Class.h"
+//////////////////////////////////////////////////Класс Герой/////////////////////////////////////////////////////////////////////
+class Player :public Entity {
+public:
+	bool NoWin;
+	Player(Image &image, float X, float Y, int W, int H, std::string Name);
+	
+	void control();
+
+	void Player::checkCollisionWithMap(float Dx, float Dy);		//Метод проверки столкновений с элементами карты
+
+	void update(float time);								//метод "оживления/обновления" объекта класса.
+};
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

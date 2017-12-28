@@ -84,11 +84,15 @@
     <ClCompile Include="EnemyClass.cpp" />
     <ClCompile Include="EntClass.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="map.cpp" />
     <ClCompile Include="PClass.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BulletClass.h" />
+    <ClInclude Include="EnemyClass.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="Class.h" />
+    <ClInclude Include="PClass.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
