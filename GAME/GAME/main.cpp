@@ -51,37 +51,41 @@ int main()
 	Sprite s_map;//создаём спрайт для карты
 	s_map.setTexture(map);//заливаем текстуру спрайтом
 
-	Clock clock;
-	Clock gameTimeClock;//переменная игрового времени, будем здесь хранить время игры 
-	Clock AtackTime;
-	int gameTime = 0;//объявили игровое время, инициализировали.
+	Clock clock; 
+Clock gameTimeClock;//переменная игрового времени, будем здесь хранить время игры 
+Clock AtackTime; 
+Clock PewPew; 
+int gameTime = 0;//объявили игровое время, инициализировали. 
 
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	while (window.isOpen())	
-	{
-		float time = clock.getElapsedTime().asMicroseconds(); 
-		float AtTime = AtackTime.getElapsedTime().asSeconds();
-		clock.restart(); //перезагружает время
-		time = time/650;
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+while (window.isOpen()) 
+{ 
+float time = clock.getElapsedTime().asMicroseconds(); 
+float AtTime = AtackTime.getElapsedTime().asSeconds(); 
+float Pew = PewPew.getElapsedTime().asSeconds(); 
+clock.restart(); //перезагружает время 
+time = time/650; 
 
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-		
-		
-		if (event.type == sf::Event::KeyPressed)
-		{
-		if (event.key.code == sf::Keyboard::E)
-		{
-			
-		//добавляем в список Bullets пулю
-		Bullets.push_back(new Bullet(BulletImage, p.x, p.y, 20, 20, "Bullet", p.state));
-		    
-				}
-			}
-		}
+sf::Event event; 
+while (window.pollEvent(event)) 
+{ 
+if (event.type == sf::Event::Closed) 
+window.close(); 
+
+
+if (event.type == sf::Event::KeyPressed) 
+{ 
+if (event.key.code == sf::Keyboard::E) 
+{ 
+if(Pew>0.5 && p.life){ 
+PewPew.restart(); 
+//добавляем в список Bullets пулю 
+Bullets.push_back(new Bullet(BulletImage, p.x, p.y, 20, 20, "Bullet", p.state)); 
+} 
+} 
+} 
+}
+
 
 
 								////////////////////////////////////////////////////////////////////////
