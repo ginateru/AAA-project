@@ -27,8 +27,20 @@ int main()
 	std::list<Entity*>  enemies; 
 	std::list<Entity*>  Bullets; 
 	std::list<Entity*>::iterator it;
-	Enemy q(enemyImage, 325, 280, 52, 47, "Enemy");
+	std::list<Entity*>::iterator no;
+
 	
+	const int ENEMY_COUNT = 3;
+	int enemiesCount = 0;
+
+	for (int i = 0; i < ENEMY_COUNT; i++)
+	{
+	float xr = 150 + rand() % 500; //случайна€ координата врага на поле игры по оси УxФ
+	float yr = 150 + rand() % 350; //случайна€ координата врага на поле игры по оси УyФ
+		//создаем врагов и помещаем в список
+		enemies.push_back(new Enemy(enemyImage, xr, yr, 47, 52, "Enemy"));
+		enemiesCount += 1; //увеличили счЄтчик врагов
+	}
 
 
 	Image map_image;//объект изображени€ дл€ карты
@@ -73,7 +85,12 @@ int main()
 	
 
 		p.update(time);
-		q.update(time);
+		
+		for (it = enemies.begin(); it != enemies.end(); it++)
+		{
+			(*it)->update(time); //запускаем метод update()
+		}
+
 
 		for (it = Bullets.begin(); it != Bullets.end(); it++)
 		{
@@ -81,6 +98,26 @@ int main()
 			(*it)->update(time); //запускаем метод update()
 			
 		}
+		if (p.life == true){//если игрок жив
+		for (it = enemies.begin(); it != enemies.end(); it++){//бежим по списку врагов
+		if ((p.getRect().intersects((*it)->getRect())) && ((*it)->name == "Enemy"))
+				{
+					p.health--;
+				}
+			}
+		}
+		for (no = Bullets.begin(); no != Bullets.end(); no++)
+		{
+			for (it = enemies.begin(); it != enemies.end(); it++)
+			{
+				if((*it)->getRect().intersects((*no)->getRect()))
+				{
+					(*it)-> life = false;	
+					it = enemies.erase(it);
+				}
+			}
+		}
+
 
 		for (it = Bullets.begin(); it != Bullets.end(); )//говорим что проходимс€ от начала до конца
 		{// если этот объект мертв, то удал€ем его
@@ -114,14 +151,20 @@ Text text("", font, 20);
 text.setColor(Color::Green);
 text.setStyle(sf::Text::Bold | sf::Text::Underlined);
 
-std::ostringstream playerHealth;
-playerHealth << p.health;
-text.setString("ƒоброе здоровьице:" + playerHealth.str());//задает строку тексту
+std::ostringstream playerScore;
+playerScore << p.score;
+text.setString("«десь могла быть ваша реклама:" + playerScore.str());//задает строку тексту
 text.setPosition(5, 5);//задаем позицию текста
 window.draw(text);//–исуем этот текст
 
 		window.draw(p.sprite);
-		window.draw(q.sprite);
+
+		for (it = enemies.begin(); it != enemies.end(); it++)
+		{
+			if ((*it)->life)
+			window.draw((*it)->sprite); //рисуем enemies объекты
+		}
+		
 		for (it = Bullets.begin(); it != Bullets.end(); it++)
 		{
 			
@@ -154,20 +197,15 @@ void Player::checkCollisionWithMap(float Dx, float Dy)
 			}
 			if (TileMap[i][j] == '2')
 			{
-				if (TileMap[i][j] == '2')
-				{
-				   if (health == 3)
-					   continue;
-				   else{
-	               health++;
+	               score++;
 	               TileMap[i][j] = ' ';
                 }
 
 			}
 				
 		}
-	}
-}
+	
+
 
 
 void Enemy::checkCollisionWithMap(double Dx, double Dy)//ф-ци€ проверки столкновений с картой

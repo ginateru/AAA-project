@@ -10,6 +10,7 @@ Entity::Entity(Image &image, float X, float Y, int W, int H, std::string Name){ 
 
 		CurrentFrame = 0;
 		health = 1;
+		score = 0;
 		life = true; //инициализировали логическую переменную жизни, герой жив
 		texture.loadFromImage(image); //заносим наше изображение в текстуру
 		sprite.setTexture(texture); //заливаем спрайт текстурой

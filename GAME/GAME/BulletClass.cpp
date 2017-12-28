@@ -9,7 +9,7 @@ Bullet::Bullet(Image &image, float X, float Y, int W, int H, std::string  Name, 
 		    x = X;
 	     	y = Y;
 		    direction = dir;
-		    speed = 0.05;
+		    speed = 0.15;
     		w = h = 20;
 	    	life = true;
 	}

@@ -12,7 +12,7 @@ class Entity {
 public:
 	enum { left, right, up, down, stay} state;// тип перечислени€ - состо€ние объекта
 	float dx, dy, x, y, speed, moveTimer;//добавили переменную таймер дл€ будущих целей
-	int w, h, health; //переменна€ УhealthФ, хран€ща€ жизни игрока
+	int w, h, health, score; //переменна€ УhealthФ, хран€ща€ жизни игрока
 	bool life; //переменна€ УlifeФ жизнь, логическа€
 	Texture texture;//сфмл текстура
 	Sprite sprite;//сфмл спрайт 
