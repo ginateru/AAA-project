@@ -31,7 +31,7 @@ int main()
 	std::list<Entity*>::iterator no;
 
 	
-	const int ENEMY_COUNT = 3;
+	const int ENEMY_COUNT = 7;
 	int enemiesCount = 0;
 
 	for (int i = 0; i < ENEMY_COUNT; i++)
@@ -54,6 +54,7 @@ int main()
 	Clock clock;
 	Clock gameTimeClock;//переменная игрового времени, будем здесь хранить время игры 
 	Clock AtackTime;
+	Clock PewPew;
 	int gameTime = 0;//объявили игровое время, инициализировали.
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -61,6 +62,7 @@ int main()
 	{
 		float time = clock.getElapsedTime().asMicroseconds(); 
 		float AtTime = AtackTime.getElapsedTime().asSeconds();
+		float Pew = PewPew.getElapsedTime().asSeconds();
 		clock.restart(); //перезагружает время
 		time = time/650;
 
@@ -75,10 +77,11 @@ int main()
 		{
 		if (event.key.code == sf::Keyboard::E)
 		{
-			
+			if(Pew>0.5 && p.life){
+			PewPew.restart();
 		//добавляем в список Bullets пулю
 		Bullets.push_back(new Bullet(BulletImage, p.x, p.y, 20, 20, "Bullet", p.state));
-		    
+			}
 				}
 			}
 		}
@@ -97,6 +100,7 @@ int main()
 
 		for (it = Bullets.begin(); it != Bullets.end(); it++)
 		{
+			
 			
 			(*it)->update(time); //запускаем метод update()
 			
@@ -182,6 +186,13 @@ if (p.NoWin == false){
 text.setColor(Color::Red);
 text.setString("ПОБЕДА");//задает строку тексту
 text.setPosition(250, 250);//задаем позицию текста
+window.draw(text);//Рисуем этот текст
+}
+if (p.life == false){
+	Text text("", font,60);
+text.setColor(Color::Red);
+text.setString("ПОРАЖЕНИЕ");//задает строку тексту
+text.setPosition(200, 250);//задаем позицию текста
 window.draw(text);//Рисуем этот текст
 }
 		window.draw(p.sprite);
@@ -301,4 +312,5 @@ void Enemy::checkCollisionWithMap(double Dx, double Dy)//ф-ция проверки столкнов
 				sprite.setPosition(x + w / 2, y + h /2);
 				
 		}
-	}
+	
+  }
