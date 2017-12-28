@@ -53,12 +53,14 @@ int main()
 
 	Clock clock;
 	Clock gameTimeClock;//переменна€ игрового времени, будем здесь хранить врем€ игры 
+	Clock AtackTime;
 	int gameTime = 0;//объ€вили игровое врем€, инициализировали.
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	while (window.isOpen())	
 	{
 		float time = clock.getElapsedTime().asMicroseconds(); 
+		float AtTime = AtackTime.getElapsedTime().asSeconds();
 		clock.restart(); //перезагружает врем€
 		time = time/650;
 
@@ -103,7 +105,10 @@ int main()
 		for (it = enemies.begin(); it != enemies.end(); it++){//бежим по списку врагов
 		if ((p.getRect().intersects((*it)->getRect())) && ((*it)->name == "Enemy"))
 				{
-					p.health--;
+					if (AtTime > 2){
+						AtackTime.restart();
+						p.health--;
+					}
 				}
 			}
 		}
@@ -115,6 +120,7 @@ int main()
 				{
 					(*it)-> life = false;	
 					it = enemies.erase(it);
+					p.score += 5;
 				}
 			}
 		}
@@ -158,6 +164,19 @@ text.setString("«десь могла быть ваша реклама:" + playerScore.str());//задает ст
 text.setPosition(5, 5);//задаем позицию текста
 window.draw(text);//–исуем этот текст
 
+std::ostringstream playerhealth;
+playerhealth << p.health;
+text.setString("«доровье:" + playerhealth.str());//задает строку тексту
+text.setPosition(5, 25);//задаем позицию текста
+window.draw(text);//–исуем этот текст
+
+if (p.NoWin == false){
+	Text text("", font, 35);
+text.setColor(Color::Red);
+text.setString("ѕќЅ≈ƒј");//задает строку тексту
+text.setPosition(300, 250);//задаем позицию текста
+window.draw(text);//–исуем этот текст
+}
 		window.draw(p.sprite);
 
 		for (it = enemies.begin(); it != enemies.end(); it++)
@@ -199,6 +218,7 @@ void Player::checkCollisionWithMap(float Dx, float Dy)
 			if (TileMap[i][j] == '2')
 			{
 	               score++;
+				   health+=1;
 	               TileMap[i][j] = ' ';
                 }
 			if (TileMap[i][j] == '3')
@@ -206,6 +226,7 @@ void Player::checkCollisionWithMap(float Dx, float Dy)
 				score += 50;
 				std::cout << "YOU ARE WINNER!!!";
 				TileMap[i][j] = ' ';
+				NoWin = false;
 			}
 
 			}

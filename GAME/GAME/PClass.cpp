@@ -5,6 +5,7 @@ Player::Player(Image &image, float X, float Y, int W, int H, std::string Name) :
 	{
  
 		state = stay;
+		NoWin = true;
 		if (name == "Player1")
 		{
 			//Задаем спрайту один прямоугольник для
@@ -49,7 +50,7 @@ void Player::control(){
 
 void Player::update(float time) //метод "оживления/обновления" объекта класса.
 	{
-	if (life) {//проверяем, жив ли герой
+	if (life && NoWin) {//проверяем, жив ли герой
 		control();//функция управления персонажем
 		switch (state)//делаются различные действия в зависимости от состояния
 		{

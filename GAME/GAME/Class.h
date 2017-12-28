@@ -29,6 +29,7 @@ public:
 //////////////////////////////////////////////////Класс Герой/////////////////////////////////////////////////////////////////////
 class Player :public Entity {
 public:
+	bool NoWin;
 	Player(Image &image, float X, float Y, int W, int H, std::string Name);
 	
 	void control();
