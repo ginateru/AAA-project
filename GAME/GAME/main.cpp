@@ -5,6 +5,7 @@
 #include <sstream>
 #include <list>
 
+
 using namespace sf;
 
 
@@ -200,6 +201,12 @@ void Player::checkCollisionWithMap(float Dx, float Dy)
 	               score++;
 	               TileMap[i][j] = ' ';
                 }
+			if (TileMap[i][j] == '3')
+			{
+				score += 50;
+				std::cout << "YOU ARE WINNER!!!";
+				TileMap[i][j] = ' ';
+			}
 
 			}
 				
