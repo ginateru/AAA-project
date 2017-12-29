@@ -4,8 +4,8 @@
 
 
 #include <SFML\Graphics.hpp>
-const int HEIGHT_MAP = 20;//размер карты по высоте
-const int WIDTH_MAP = 20;//размер карты по ширине 
+const int HEIGHT_MAP = 13;//размер карты по высоте
+const int WIDTH_MAP = 17;//размер карты по ширине 
 
 extern std::string TileMap[HEIGHT_MAP]; 
 

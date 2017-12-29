@@ -14,9 +14,8 @@ using namespace sf;
 
 int main()
 {
-	char t;
 	VideoMode desktop = sf::VideoMode::getDesktopMode();
-	RenderWindow window(sf::VideoMode(940, 940, desktop.bitsPerPixel), "test");
+	RenderWindow window(sf::VideoMode(800, 600, desktop.bitsPerPixel), "test");
 
 	Image heroImage;
 	Image enemyImage;
@@ -222,8 +221,7 @@ window.draw(text);//Рисуем этот текст
         
 return 0;
 }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Метод проверки столкновений с элементами карты
+
 
 	
 
